@@ -1,0 +1,20 @@
+{
+  "name": "myjs",
+  "description": "js 托管工具",
+  "main": "index.js",
+  "keywords": [
+    "js"
+  ],
+  "authors": [
+    "lxraa"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

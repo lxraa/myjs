@@ -1,0 +1,14 @@
+<html>
+<%- include('header')  -%>
+<body>
+<form action=<%= origin + "/upload" %> enctype="multipart/form-data" method="POST">
+	<input type="file" name="js_file"></input><br></br>
+	<%- include('recaptcha') %><br></br>
+	<input type="submit" value="shangchuan"></input>
+</form>
+
+</body>
+
+
+<%- include('footer')  -%>
+</html>
