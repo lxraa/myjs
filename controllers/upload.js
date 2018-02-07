@@ -1,7 +1,11 @@
 var utils = require("./utils");
+var mail = require("./mail");
+
 var fs = require("fs");
 var request = require("request");
 var async = require("async");
+
+
 
 var Uploader = {
 
@@ -12,6 +16,7 @@ var Uploader = {
 	upload : function(req ,res){
 		var token = req.body['g-recaptcha-response'];
 		var file = req.files.js_file[0];
+		var mail_address = req.body['mail_address'];
 
 		async.auto({
 			reCaptchaHandler : function(callback){
@@ -55,11 +60,11 @@ var Uploader = {
 				});
 
 			},
-
+			
 			fileHandler : ["reCaptchaHandler",function(results,callback){
 				if(results.reCaptchaHandler.result == false){
 					callback(null,{info : "recaptcha inspection error"});
-					return ;
+					return;
 				}
 				var file_folder = utils.getDate();
 				var target_path = `${__dirname}/../files/${file_folder}/`;
@@ -67,7 +72,11 @@ var Uploader = {
 
 				var origin_filename = file.originalname;
 				var path = file.path;
-				fs.renameSync(path,`${target_path}${(new Date()).getTime()}_${origin_filename}`);
+				var target = `${target_path}${(new Date()).getTime()}_${origin_filename}`;
+				var url = `http:\/\/127.0.0.1:3000/${file_folder}/${(new Date()).getTime()}_${origin_filename}`;
+
+				fs.renameSync(path,target);
+				mail.sendMail(mail_address,"your js address",url);
 
 				callback(null,{info : "uploaded"});
 				
