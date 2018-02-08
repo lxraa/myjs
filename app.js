@@ -9,7 +9,8 @@ var app = express();
 
 var bodyParser = require("body-parser");
 
-app.use(express.static(path.join(__dirname,"/files")))
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("views","./views");

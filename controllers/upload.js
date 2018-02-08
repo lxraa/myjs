@@ -5,13 +5,16 @@ var fs = require("fs");
 var request = require("request");
 var async = require("async");
 
-
+var host = "http://127.0.0.1:3000"
 
 var Uploader = {
 
 	index : function(req,res){
-		res.render("index",{ origin : "http://127.0.0.1:3000" });
+		res.render("index",{ origin : host });
 	},
+
+
+
 
 	upload : function(req ,res){
 		var token = req.body['g-recaptcha-response'];
@@ -73,7 +76,7 @@ var Uploader = {
 				var origin_filename = file.originalname;
 				var path = file.path;
 				var target = `${target_path}${(new Date()).getTime()}_${origin_filename}`;
-				var url = `http:\/\/127.0.0.1:3000/${file_folder}/${(new Date()).getTime()}_${origin_filename}`;
+				var url = `${host}/jsfiles/${file_folder}/${(new Date()).getTime()}_${origin_filename}`;
 
 				fs.renameSync(path,target);
 				mail.sendMail(mail_address,"your js address",url);
